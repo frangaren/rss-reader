@@ -17,6 +17,7 @@ body {
   background: #383838;
   padding: 2em;
   border-bottom: 1em solid #f90;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 #main-header > form {
@@ -50,4 +51,19 @@ body {
 
 #main-header > form > button:active {
   background-color: #e80;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+article {
+  background: white;
+  border: 1px solid #bbb;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  margin: 1em 0 0 1em;
+  padding: 1em;
+  width: calc(33% - 3em - 2px);
 }
