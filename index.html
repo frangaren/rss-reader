@@ -6,16 +6,18 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/main.css">
+    <script src="script/main.js"></script>
   </head>
   <body>
     <header id="main-header">
       <h1>Lector RSS</h1>
       <form>
-        <input type="url" placeholder="URL del feed RSS" required><button>
+        <input type="url" placeholder="URL del feed RSS" id="feed-url"
+        required><button onclick="view.updateFeed(); return false;">
         Actualizar</button>
       </form>
     </header>
-    <main>
+    <main id="main">
       <article>
         <header>
           <h2>Lorem ipsum</h2>
