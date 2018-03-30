@@ -26,6 +26,11 @@ function Item(channel) {
     var authorshipP = document.createElement('p');
     authorshipP.appendChild(document.createTextNode('Publicado en '));
     authorshipP.appendChild(this.channel.renderLink());
+    if (this.date) {
+      authorshipP.appendChild(document.createTextNode(' el '));
+      var dateText = document.createTextNode(this.date.toDateString());
+      authorshipP.appendChild(dateText);
+    }
     if (this.creator) {
       authorshipP.appendChild(document.createTextNode(' por '));
       authorshipP.appendChild(document.createTextNode(this.creator));
@@ -102,6 +107,10 @@ Item.fromRSS = function (channel, xml) {
     for (var xcategory of xcategories) {
       item.categories.push(xcategory.firstChild.nodeValue);
     }
+  }
+  var xpubDate = xml.getElementsByTagName('pubDate');
+  if (xpubDate.length > 0) {
+    item.date = new Date(xpubDate[0].firstChild.nodeValue);
   }
   return item;
 }
