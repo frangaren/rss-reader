@@ -109,7 +109,7 @@ article > section h6 {
 }
 
 article > section {
-  margin-bottom: 1em;
+  margin: 1em 0;
 }
 
 article > section * {
