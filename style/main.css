@@ -1,3 +1,10 @@
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-user-modify: read-only !important;
+  outline: none !important;
+}
+
 html {
   height: 100%;
 }
