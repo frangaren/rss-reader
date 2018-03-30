@@ -201,7 +201,7 @@ function View(controller) {
   window.onload = () => {
     feedUrlTextbox = document.getElementById('feed-url');
     mainElement = document.getElementById('main');
-    controller.loadFeed(helpFeed, this.renderFeed, this.renderError);
+    this.renderHelp();
   }
 
   this.updateFeed = function () {
@@ -242,6 +242,10 @@ function View(controller) {
     }
     p.appendChild(document.createTextNode(errorString));
     mainElement.appendChild(p);
+  }
+
+  this.renderHelp = function () {
+    controller.loadFeed(helpFeed, this.renderFeed, this.renderError);
   }
 }
 

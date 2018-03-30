@@ -43,23 +43,20 @@ body {
 #main-header > form > input[type="url"] {
   box-sizing: border-box;
   border: 1px solid #f90;
-  border-right: none;
+  border-width: 1px 0;
   font-size: inherit;
   height: 1.8em;
   width: 30%;
   padding: 0.1em 0.8em;
-  border-radius: 1em 0 0 1em;
   color: inherit;
 }
 
 #main-header > form > button {
-  width: 10%;
   box-sizing: border-box;
   border: 1px solid #f90;
   font-size: inherit;
   height: 1.8em;
   padding: 0.1em 0.8em;
-  border-radius: 0 1em 1em 0;
   background: #f90;
   color: white;
   text-shadow: -1px -1px rgba(0, 0, 0, 0.2), 1px 1px rgba(255, 255, 255, 0.2);
@@ -69,29 +66,51 @@ body {
   background-color: #e80;
 }
 
+#main-header > form > button.update-button {
+  width: 10%;
+  border-radius: 0 0.8em 0.8em 0;
+}
+
+#main-header > form > button.help-button {
+  width: 5%;
+  border-radius: 0.8em 0 0 0.8em;
+}
+
 @media (max-width: 1023px) {
   #main-header > form > input[type="url"] {
     width: 45%;
   }
 
-  #main-header > form > button {
+  #main-header > form > button.update-button {
     width: 15%;
   }
 }
 
 @media (max-width: 767px) {
   #main-header > form > input[type="url"] {
-    width: 100%;
-    border-radius: 0.8em 0.8em 0 0;
+    width: 90%;
+    border-radius: 0 0.8em 0 0;
+    border: 1px solid #f90;
+    border-bottom: 1px solid #e80;
+    border-left: none;
   }
 
   #main-header > form > input[type="url"]::placeholder {
     text-align: center;
   }
 
-  #main-header > form > button {
+  #main-header > form > button.update-button {
     width: 100%;
     border-radius: 0 0 0.8em 0.8em;
+    border: 1px solid #f90;
+    border-top: 1px solid #fa0;
+  }
+
+  #main-header > form > button.help-button {
+    width: 10%;
+    border-radius: 0.8em 0 0 0;
+    border: 1px solid #f90;
+    border-bottom: 1px solid #e80;
   }
 }
 

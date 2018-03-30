@@ -13,9 +13,14 @@
     <header id="main-header">
       <h1>Lector RSS</h1>
       <form>
-        <input type="url" placeholder="Dirección del feed RSS" id="feed-url"
+        <!-- This needs to be tabulated messy so that there isn't a space
+             between the buttons and the input box -->
+        <button onclick="view.renderHelp(); return false;"
+        class="help-button">?</button><input type="url"
+        placeholder="Dirección del feed RSS" id="feed-url"
         oninvalid="view.renderError(this.validationMessage)" required><button
-        onclick="view.updateFeed(); return false;">Actualizar</button>
+        onclick="view.updateFeed(); return false;" class="update-button"
+        >Actualizar</button>
       </form>
     </header>
     <main id="main">
