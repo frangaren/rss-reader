@@ -76,6 +76,10 @@ article {
   width: calc(33% - 3em - 2px);
 }
 
+article > section * {
+  max-width: 100%;
+}
+
 footer {
   text-align: center;
   background: #383838;
