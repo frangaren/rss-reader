@@ -90,7 +90,7 @@ Channel.fromRSS = function (xml) {
   var link = xchannel.getElementsByTagName('link')[0].firstChild.nodeValue;
   var channel = new Channel(title, description, link);
   var items = xchannel.getElementsByTagName('item');
-  for (item of items) {
+  for (var item of items) {
     channel.items.push(Item.fromRSS(item));
   }
   return channel;
@@ -132,7 +132,7 @@ function Controller() {
 
   this.renderFeed = function () {
     var articles = [];
-    for (item of feed.items) {
+    for (var item of feed.items) {
       articles.push(item.render());
     }
     return articles;
@@ -168,7 +168,7 @@ function View(controller) {
       mainElement.removeChild(mainElement.firstChild);
     }
     var articles = controller.renderFeed();
-    for (article of articles) {
+    for (var article of articles) {
       mainElement.appendChild(article);
     }
   }
