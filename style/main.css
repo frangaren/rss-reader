@@ -15,7 +15,7 @@ body {
 #main-header {
   text-align: center;
   background: #383838;
-  padding: 2em;
+  padding: 2em 1em;
   border-bottom: 1em solid #f90;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
@@ -30,6 +30,7 @@ body {
 #main-header > form {
   display: inline-block;
   text-align: center;
+  width: 100%;
 }
 
 #main-header > form > input[type="url"] {
@@ -38,13 +39,14 @@ body {
   border-right: none;
   font-size: inherit;
   height: 1.8em;
-  min-width: 25em;
+  width: 30%;
   padding: 0.1em 0.8em;
   border-radius: 1em 0 0 1em;
   color: inherit;
 }
 
 #main-header > form > button {
+  width: 10%;
   box-sizing: border-box;
   border: 1px solid #f90;
   font-size: inherit;
@@ -58,6 +60,32 @@ body {
 
 #main-header > form > button:active {
   background-color: #e80;
+}
+
+@media (max-width: 1023px) {
+  #main-header > form > input[type="url"] {
+    width: 45%;
+  }
+
+  #main-header > form > button {
+    width: 15%;
+  }
+}
+
+@media (max-width: 767px) {
+  #main-header > form > input[type="url"] {
+    width: 100%;
+    border-radius: 0.8em 0.8em 0 0;
+  }
+
+  #main-header > form > input[type="url"]::placeholder {
+    text-align: center;
+  }
+
+  #main-header > form > button {
+    width: 100%;
+    border-radius: 0 0 0.8em 0.8em;
+  }
 }
 
 main {
@@ -82,7 +110,19 @@ article {
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   margin: 1em 0 0 1em;
   padding: 1em;
-  width: calc(33% - 3em - 2px);
+  width: calc(33.33% - 3.33em - 2px);
+}
+
+@media (max-width: 1023px) {
+  article {
+    width: calc(50% - 3.5em - 2px);
+  }
+}
+
+@media (max-width: 767px) {
+  article {
+    width: calc(100% - 4em - 2px);
+  }
 }
 
 a {
@@ -128,13 +168,17 @@ article > section > details > summary {
   list-style: none;
 }
 
+article > section > details > summary::-webkit-details-marker {
+  display: none;
+}
+
 article > section > details > summary::after {
   padding: 0.4em 0.8em;
   border-radius: 1em;
   background-color: #f90;
   content: "Ver más...";
   color: #fff;
-  weight: 400;
+  font-weight: 400;
   text-shadow: -1px -1px rgba(0, 0, 0, 0.2), 1px 1px rgba(255, 255, 255, 0.2);
 }
 
