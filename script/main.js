@@ -58,7 +58,7 @@ function Controller() {
   this.loadFeed = function (url, callback, error_callback) {
     var request = new XMLHttpRequest();
     var controller = this;
-    request.onreadystatechanged = function () {
+    request.onreadystatechange = function () {
       if (this.readyState === 4) {
         if (this.status === 200) {
           controller.parseRSS(this.responseXML);
