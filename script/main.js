@@ -1,8 +1,11 @@
 /*
  *  MODEL
  */
-function Item() {
+function Item(channel) {
   var detailsRegExp = new RegExp(/^((?:.|\n)*)<!--more-->((?:.|\n)*)$/gi);
+
+  this.channel = channel;
+
   this.render = function () {
     var article = document.createElement('article');
     var header = document.createElement('header');
@@ -20,12 +23,14 @@ function Item() {
       }
       header.appendChild(h2);
     }
+    var authorshipP = document.createElement('p');
+    authorshipP.appendChild(document.createTextNode('Publicado en '));
+    authorshipP.appendChild(this.channel.renderLink());
     if (this.creator) {
-      var creatorP = document.createElement('p');
-      creatorP.appendChild(document.createTextNode('Por '));
-      creatorP.appendChild(document.createTextNode(this.creator));
-      header.appendChild(creatorP);
+      authorshipP.appendChild(document.createTextNode(' por '));
+      authorshipP.appendChild(document.createTextNode(this.creator));
     }
+    header.appendChild(authorshipP);
     article.append(header);
     if (this.description) {
       var contentSection = document.createElement('section');
@@ -63,8 +68,8 @@ function Item() {
   }
 }
 
-Item.fromRSS = function (xml) {
-  var item = new Item();
+Item.fromRSS = function (channel, xml) {
+  var item = new Item(channel);
   var xtitle = xml.getElementsByTagName('title');
   if (xtitle.length > 0) {
     item.title = xtitle[0].firstChild.nodeValue;
@@ -106,6 +111,14 @@ function Channel(title, description, link) {
   this.description = description;
   this.link = link;
   this.items = [];
+
+  this.renderLink = function () {
+    var a = document.createElement('a');
+    a.setAttribute('href', this.link);
+    a.setAttribute('target', '__blank');
+    a.appendChild(document.createTextNode(this.title));
+    return a;
+  }
 }
 
 Channel.fromRSS = function (xml) {
@@ -117,7 +130,7 @@ Channel.fromRSS = function (xml) {
   var channel = new Channel(title, description, link);
   var items = xchannel.getElementsByTagName('item');
   for (var item of items) {
-    channel.items.push(Item.fromRSS(item));
+    channel.items.push(Item.fromRSS(channel, item));
   }
   return channel;
 }
