@@ -186,6 +186,21 @@ article > section > details[open] > summary::after {
   content: "Ver menos...";
 }
 
+.tags {
+  border-top: 1px solid #efefef;
+}
+
+.tags p {
+  line-height: 2em;
+}
+
+.tag {
+  background-color: #efefef;
+  padding: 0.2em 0.8em;
+  margin: 0 0.4em;
+  border-radius: 1em;
+}
+
 footer {
   text-align: center;
   background: #383838;

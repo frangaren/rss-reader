@@ -44,6 +44,21 @@ function Item() {
       }
       article.append(contentSection);
     }
+    if (this.categories) {
+      var tagsSection = document.createElement('section');
+      tagsSection.setAttribute('class', 'tags');
+      var tagsP = document.createElement('p');
+      tagsSection.appendChild(tagsP);
+      tagsP.appendChild(document.createTextNode('Tags: '));
+      for (var category of this.categories) {
+        var tagSpan = document.createElement('span');
+        tagSpan.setAttribute('class', 'tag');
+        tagSpan.appendChild(document.createTextNode(category));
+        tagsP.appendChild(tagSpan);
+        tagsP.appendChild(document.createTextNode(' '));
+      }
+      article.append(tagsSection);
+    }
     return article;
   }
 }
@@ -71,6 +86,17 @@ Item.fromRSS = function (xml) {
   var xcreator = xml.getElementsByTagName('dc:creator');
   if (xcreator.length > 0) {
     item.creator = xcreator[0].firstChild.nodeValue;
+  }
+  var xauthor = xml.getElementsByTagName('author');
+  if (xauthor.length > 0) {
+    item.author = xauthor[0].firstChild.nodeValue;
+  }
+  var xcategories = xml.getElementsByTagName('category');
+  if (xcategories.length > 0) {
+    item.categories = [];
+    for (var xcategory of xcategories) {
+      item.categories.push(xcategory.firstChild.nodeValue);
+    }
   }
   return item;
 }
