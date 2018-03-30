@@ -83,6 +83,7 @@ function Channel(title, description, link) {
 }
 
 Channel.fromRSS = function (xml) {
+  if (!xml) return null;
   var xchannel = xml.getElementsByTagName('channel')[0];
   var title = xchannel.getElementsByTagName('title')[0].firstChild.nodeValue;
   var description = xchannel.getElementsByTagName('description')[0].firstChild.nodeValue;
@@ -109,8 +110,11 @@ function Controller() {
     request.onreadystatechange = function () {
       if (this.readyState === 4) {
         if (this.status === 200) {
-          controller.parseRSS(this.responseXML);
-          callback();
+          if (controller.parseRSS(this.responseXML)) {
+            callback();
+          } else {
+            error_callback('Vaya, no puedo entender el formato de ese feed.');
+          }
         } else {
           error_callback(this.status);
         }
@@ -123,6 +127,7 @@ function Controller() {
 
   this.parseRSS = function (xml) {
     feed = Channel.fromRSS(xml);
+    return feed != null;
   }
 
   this.renderFeed = function () {
@@ -169,7 +174,26 @@ function View(controller) {
   }
 
   this.renderError = function (error) {
-
+    while (mainElement.firstChild) {
+      mainElement.removeChild(mainElement.firstChild);
+    }
+    var p = document.createElement('p');
+    p.setAttribute('class', 'big-message');
+    var errorString = '¡Ups! No hay nada por aquí.';
+    if (typeof error === 'string') {
+      errorString = error;
+    } else {
+      switch (error) {
+        case 404:
+          errorString = 'No he encontrado nada en esa dirección.';
+          break;
+        case 403:
+          errorString = '¡No tienes permiso para hacer eso!';
+          break;
+      }
+    }
+    p.appendChild(document.createTextNode(errorString));
+    mainElement.appendChild(p);
   }
 }
 
