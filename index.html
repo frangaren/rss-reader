@@ -14,8 +14,8 @@
       <h1>Lector RSS</h1>
       <form>
         <input type="url" placeholder="Dirección del feed RSS" id="feed-url"
-        required><button onclick="view.updateFeed(); return false;">
-        Actualizar</button>
+        oninvalid="view.renderError(this.validationMessage)" required><button
+        onclick="view.updateFeed(); return false;">Actualizar</button>
       </form>
     </header>
     <main id="main">
