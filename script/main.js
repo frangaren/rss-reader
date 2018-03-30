@@ -2,27 +2,76 @@
  *  MODEL
  */
 function Item() {
+  var detailsRegExp = new RegExp(/^((?:.|\n)*)<!--more-->((?:.|\n)*)$/gi);
   this.render = function () {
     var article = document.createElement('article');
     var header = document.createElement('header');
-    var h2 = document.createElement('h2');
-    var titleNode = document.createTextNode(this.title);
-    h2.appendChild(titleNode);
-    header.appendChild(h2);
+    if (this.title) {
+      var h2 = document.createElement('h2');
+      var titleNode = document.createTextNode(this.title);
+      if (this.link) {
+        var a = document.createElement('a');
+        a.setAttribute('href', this.link);
+        a.setAttribute('target', '__blank');
+        a.appendChild(titleNode);
+        h2.appendChild(a);
+      } else {
+        h2.appendChild(titleNode);
+      }
+      header.appendChild(h2);
+    }
+    if (this.creator) {
+      var creatorP = document.createElement('p');
+      creatorP.appendChild(document.createTextNode('Por '));
+      creatorP.appendChild(document.createTextNode(this.creator));
+      header.appendChild(creatorP);
+    }
     article.append(header);
-    var contentSection = document.createElement('section');
-    contentSection.innerHTML= this.description;
-    article.append(contentSection);
+    if (this.description) {
+      var contentSection = document.createElement('section');
+      var descriptionParts = detailsRegExp.exec(this.description);
+      if (descriptionParts) {
+        var details = document.createElement('details');
+        var summary = document.createElement('summary');
+        summary.innerHTML = descriptionParts[1];
+        details.appendChild(summary);
+        var moreSection = document.createElement('section');
+        moreSection.innerHTML = descriptionParts[2];
+        details.appendChild(moreSection);
+        contentSection.appendChild(details);
+      } else {
+        contentSection.innerHTML = this.description;
+      }
+      article.append(contentSection);
+    }
     return article;
   }
 }
 
 Item.fromRSS = function (xml) {
-  var title = xml.getElementsByTagName('title')[0].firstChild.nodeValue;
-  var description = xml.getElementsByTagName('description')[0].firstChild.nodeValue;
   var item = new Item();
-  item.title = title;
-  item.description = description;
+  var xtitle = xml.getElementsByTagName('title');
+  if (xtitle.length > 0) {
+    item.title = xtitle[0].firstChild.nodeValue;
+  }
+  var xdescription = xml.getElementsByTagName('description');
+  if (xdescription.length > 0) {
+    xdescription = xdescription[0].firstChild;
+    var description = '';
+    do {
+      description += xdescription.nodeValue;
+      xdescription = xdescription.nextSibling;
+    } while (xdescription);
+    item.description = description;
+  }
+  var xlink = xml.getElementsByTagName('link');
+  if (xlink.length > 0) {
+    item.link = xlink[0].firstChild.nodeValue;
+  }
+  var xcreator = xml.getElementsByTagName('dc:creator');
+  if (xcreator.length > 0) {
+    item.creator = xcreator[0].firstChild.nodeValue;
+  }
   return item;
 }
 
@@ -67,6 +116,7 @@ function Controller() {
         }
       }
     };
+    //A cross-origin proxy is needed to do AJAX to a different host. See CORS.
     request.open('GET', 'https://crossorigin.me/' + url, true);
     request.send();
   }
