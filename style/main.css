@@ -108,8 +108,38 @@ article > section h6 {
   font-weight: 400;
 }
 
+article > section {
+  margin-bottom: 1em;
+}
+
 article > section * {
   max-width: 100%;
+}
+
+article > header {
+  border-bottom: 1px solid #efefef;
+}
+
+article > section > details {
+
+}
+
+article > section > details > summary {
+  list-style: none;
+}
+
+article > section > details > summary::after {
+  padding: 0.4em 0.8em;
+  border-radius: 1em;
+  background-color: #f90;
+  content: "Ver más...";
+  color: #fff;
+  weight: 400;
+  text-shadow: -1px -1px rgba(0, 0, 0, 0.2), 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+article > section > details[open] > summary::after {
+  content: "Ver menos...";
 }
 
 footer {
