@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>Lector RSS</title>
+    <description>Información y ayuda sobre el lector RSS</description>
+    <link>https://frangaren.github.io/rss-reader/</link>
+    <language>es-ES</language>
+    <item>
+      <title>¿Cómo visualizar un feed RSS?</title>
+      <dc:creator>Francisco García</dc:creator>
+      <description><![CDATA[
+        Para visualizar un feed debes escribir sobre el campo de texto de la
+        parte superior de la página la dirección del feed a visualizar. Para
+        localizar esta dirección, debes ir a la página del medio cuyo feed
+        quieres obtener. A continuación, buscar un icono similar a <img
+        src='images/feed-icon-28x28.png' alt='icono de feed RSS'>. Una vez lo
+        hayas encontrado, consigue la dirección del enlace (por jemplo, haz
+        click y copia la dirección a la que te lleve).
+      ]]></description>
+    </item>
+  </channel>
+</rss>

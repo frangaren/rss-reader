@@ -143,10 +143,12 @@ function Controller() {
 function View(controller) {
   var feedUrlTextbox = null;
   var mainElement = null;
+  var helpFeed = document.location + 'help.xml';
 
   window.onload = () => {
     feedUrlTextbox = document.getElementById('feed-url');
     mainElement = document.getElementById('main');
+    controller.loadFeed(helpFeed, this.renderFeed, this.renderError);
   }
 
   this.updateFeed = function () {
