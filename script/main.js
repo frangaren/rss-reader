@@ -208,6 +208,14 @@ function View(controller) {
     if (feedUrlTextbox.checkValidity()) {
       controller.loadFeed(feedUrlTextbox.value, this.renderFeed,
         this.renderError);
+    } else {
+      if (!/[a-zA-Z]:\/\/.*/gi.exec(feedUrlTextbox.value)) {
+        feedUrlTextbox.value = 'http://' + feedUrlTextbox.value;
+        if (feedUrlTextbox.checkValidity()) {
+          controller.loadFeed(feedUrlTextbox.value, this.renderFeed,
+            this.renderError);
+        }
+      }
     }
   }
 
