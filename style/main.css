@@ -53,7 +53,7 @@ body {
   border-radius: 0 1em 1em 0;
   background: #f90;
   color: white;
-  text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+  text-shadow: -1px -1px rgba(0, 0, 0, 0.2), 1px 1px rgba(255, 255, 255, 0.2);
 }
 
 #main-header > form > button:active {
@@ -67,6 +67,15 @@ main {
   flex-grow: 1;
 }
 
+.big-message {
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  font-size: 3em;
+  color: #d8d8d8;
+  text-shadow: -1px -1px #c8c8c8, 1px 1px #f8f8f8;
+}
+
 article {
   background: white;
   border: 1px solid #bbb;
@@ -74,6 +83,29 @@ article {
   margin: 1em 0 0 1em;
   padding: 1em;
   width: calc(33% - 3em - 2px);
+}
+
+a {
+  text-decoration: none;
+  color: #f90;
+}
+
+article > header > h2 {
+  margin-top: 0;
+  color: #f90;
+  font-size: 1.6em;
+  font-weight: 400;
+}
+
+article > section h1,
+article > section h2,
+article > section h3,
+article > section h4,
+article > section h5,
+article > section h6 {
+  color: #f90;
+  font-size: 1.4em;
+  font-weight: 400;
 }
 
 article > section * {
