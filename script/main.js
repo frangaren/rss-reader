@@ -11,16 +11,15 @@ function Item() {
     header.appendChild(h2);
     article.append(header);
     var contentSection = document.createElement('section');
-    var descriptionNode = document.createTextNode(this.descriptionNode);
-    contentSection.append(descriptionNode);
+    contentSection.innerHTML= this.description;
     article.append(contentSection);
     return article;
   }
 }
 
 Item.fromRSS = function (xml) {
-  var title = xml.getElementsByTagName('title')[0].nodeValue;
-  var description = xml.getElementsByTagName('description')[0].nodeValue;
+  var title = xml.getElementsByTagName('title')[0].firstChild.nodeValue;
+  var description = xml.getElementsByTagName('description')[0].firstChild.nodeValue;
   var item = new Item();
   item.title = title;
   item.description = description;
@@ -36,13 +35,13 @@ function Channel(title, description, link) {
 
 Channel.fromRSS = function (xml) {
   var xchannel = xml.getElementsByTagName('channel')[0];
-  var title = channel.getElementsByTagName('title')[0].nodeValue;
-  var description = channel.getElementsByTagName('description')[0].nodeValue;
-  var link = channel.getElementsByTagName('link')[0].nodeValue;
+  var title = xchannel.getElementsByTagName('title')[0].firstChild.nodeValue;
+  var description = xchannel.getElementsByTagName('description')[0].firstChild.nodeValue;
+  var link = xchannel.getElementsByTagName('link')[0].firstChild.nodeValue;
   var channel = new Channel(title, description, link);
-  var items = channel.getElementsByTagName('item');
+  var items = xchannel.getElementsByTagName('item');
   for (item of items) {
-    channel.items.push(Item.fromXML(item));
+    channel.items.push(Item.fromRSS(item));
   }
   return channel;
 }
@@ -68,7 +67,7 @@ function Controller() {
         }
       }
     };
-    request.open('GET', url, true);
+    request.open('GET', 'https://crossorigin.me/' + url, true);
     request.send();
   }
 
@@ -78,7 +77,7 @@ function Controller() {
 
   this.renderFeed = function () {
     var articles = [];
-    for (item of channel.items) {
+    for (item of feed.items) {
       articles.push(item.render());
     }
     return articles;
@@ -108,6 +107,9 @@ function View(controller) {
   }
 
   this.renderFeed = function () {
+    while (mainElement.firstChild) {
+      mainElement.removeChild(mainElement.firstChild);
+    }
     var articles = controller.renderFeed();
     for (article of articles) {
       mainElement.appendChild(article);
